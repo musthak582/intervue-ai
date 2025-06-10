@@ -1,15 +1,15 @@
-const multer = require('multer');
-const cloudinary = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../config/cloudinary');
+const multer = require('multer');
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'intervue-ai',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'gif'],
-  },
+    folder: 'intervue-ai', // Your target folder
+    allowed_formats: ['jpg', 'jpeg', 'png'],
+    transformation: [{ width: 800, crop: 'limit' }] // Optional
+  }
 });
 
-const upload = multer({ storage: storage });
-
+const upload = multer({ storage });
 module.exports = { upload };
