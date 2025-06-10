@@ -1,4 +1,4 @@
-const {GoogleGenAI} = require('@google/genai');
+const { GoogleGenAI } = require('@google/genai');
 const { questionAnswerPrompt,conceptExplainPrompt } = require('../utils/prompts');
 
 const ai = new GoogleGenAI({
