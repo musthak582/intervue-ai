@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser, getUserProfile } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
-const { handleUpload } = require('../middleware/uploadMiddleware');
+const { handleUploadCloudinary } = require('../middleware/uploadMiddleware');
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ router.get('/profile', protect, getUserProfile);
 
 const { handleUpload } = require('../middleware/uploadMiddleware');
 
-router.post("/upload-image", handleUpload, async (req, res) => {
+router.post("/upload-image", handleUploadCloudinary, async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });

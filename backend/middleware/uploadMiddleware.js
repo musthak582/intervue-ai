@@ -30,4 +30,4 @@ const handleUpload = (req, res, next) => {
   });
 };
 
-module.exports = { handleUpload };
+module.exports = { handleUploadCloudinary };
