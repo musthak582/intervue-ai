@@ -13,7 +13,7 @@ const app = express()
 
 //Middleware to handle cors
 app.use(cors({
-  origin: "*",
+  origin: ["https://intervue-ai-phi.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders:["Content-Type", "Authorization"],
 }))
