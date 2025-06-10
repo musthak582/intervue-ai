@@ -1,4 +1,4 @@
-export const BASE_URL = "https://intervue-ai-backend.up.railway.app";
+export const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 export const API_PATHS = {
   AUTH: {
