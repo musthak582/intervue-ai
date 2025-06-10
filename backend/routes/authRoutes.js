@@ -9,7 +9,6 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
 
-const { handleUpload } = require('../middleware/uploadMiddleware');
 
 router.post("/upload-image", handleUploadCloudinary, async (req, res) => {
   try {
