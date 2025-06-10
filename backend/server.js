@@ -12,11 +12,12 @@ const { generateInterviewQuestions, generateConceptExplanation } = require("./co
 const app = express()
 
 //Middleware to handle cors
+const cors = require("cors");
 app.use(cors({
   origin: ["https://intervue-ai-phi.vercel.app"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders:["Content-Type", "Authorization"],
-}))
+  methods: ["GET", "POST", "PUT", "DELETE"], // Explicitly allow POST
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 connectDB()
 
@@ -31,8 +32,7 @@ app.use("/api/sessions", sessionRoutes)
 app.use("/api/ai/generate-question", protect, generateInterviewQuestions)
 app.use("/api/ai/generate-explanation", protect, generateConceptExplanation)
 
-//Server uploads folder
-app.use("/uploads", express.static(path.join(__dirname, "uploads"),{}))
+
 
 //Start Server
 const PORT = process.env.PORT || 5000
