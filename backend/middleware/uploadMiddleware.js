@@ -21,11 +21,21 @@ const upload = multer({
 const handleUploadCloudinary = (req, res, next) => {
   upload.single('image')(req, res, (err) => {
     if (err) {
+      console.error('Multer upload error:', err);
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(413).json({
+          error: 'File too large',
+          details: 'Maximum file size is 10MB'
+        });
+      }
       return res.status(500).json({
         error: 'Upload failed',
         details: err.message
       });
     }
+
+    // Debug log to confirm file was processed
+    console.log('File processed by multer:', req.file);
     next();
   });
 };

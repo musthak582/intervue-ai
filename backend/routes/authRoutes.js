@@ -12,21 +12,28 @@ router.get('/profile', protect, getUserProfile);
 
 router.post("/upload-image", handleUploadCloudinary, async (req, res) => {
   try {
-    if (!req.file) {
+    // Check if file exists (might be in req.file or req.body.file depending on setup)
+    const file = req.file;
+    if (!file) {
+      console.log('No file received in request');
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
+    // Debug log the entire file object
+    console.log('Uploaded file object:', file);
+
     // Ensure Cloudinary URL exists
-    if (!req.file.path) {
+    if (!file.path) {
+      console.error('Cloudinary URL missing in file object');
       throw new Error('Cloudinary URL not generated');
     }
 
-    console.log('File uploaded successfully:', req.file.path);
+    console.log('File uploaded successfully:', file.path);
 
-    // Explicitly end the response
+    // Send response
     res.status(200).json({
-      imageUrl: req.file.path
-    }).end(); // ← Critical for preventing hangs
+      imageUrl: file.path
+    });
 
   } catch (err) {
     console.error('Upload error:', err);
