@@ -4,8 +4,8 @@ const { questionAnswerPrompt,conceptExplainPrompt } = require('../utils/prompts'
 let ai;
 
 (async () => {
-  const { GoogleGenerativeAI } = await import('@google/genai');
-  ai = new GoogleGenerativeAI({
+  const { GoogleGenAI } = await import('@google/genai');
+  ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
   });
 })();
