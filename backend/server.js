@@ -12,7 +12,6 @@ const { generateInterviewQuestions, generateConceptExplanation } = require("./co
 const app = express()
 
 //Middleware to handle cors
-const cors = require("cors");
 app.use(cors({
   origin: ["https://intervue-ai-phi.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"], // Explicitly allow POST
