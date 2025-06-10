@@ -18,7 +18,7 @@ const upload = multer({
 });
 
 // Add error handling wrapper
-const handleUpload = (req, res, next) => {
+const handleUploadCloudinary = (req, res, next) => {
   upload.single('image')(req, res, (err) => {
     if (err) {
       return res.status(500).json({

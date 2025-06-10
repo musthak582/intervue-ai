@@ -21,6 +21,8 @@ router.post("/upload-image", handleUploadCloudinary, async (req, res) => {
       throw new Error('Cloudinary URL not generated');
     }
 
+    console.log('File uploaded successfully:', req.file.path);
+
     // Explicitly end the response
     res.status(200).json({
       imageUrl: req.file.path
