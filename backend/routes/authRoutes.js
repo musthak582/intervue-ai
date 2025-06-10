@@ -10,22 +10,16 @@ router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
 
 router.post("/upload-image", upload.single("image"), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ message: "No file uploaded" });
-    }
-
-    // With the Cloudinary storage, the file URL is already available in req.file.path
-    const imageUrl = req.file.path;
-
-    res.status(200).json({
-      message: "Image uploaded successfully",
-      imageUrl: imageUrl
-    });
-  } catch (error) {
-    console.error("Upload error:", error);
-    res.status(500).json({ message: "Error uploading image", error: error.message });
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
   }
+
+  // Immediately respond with the URL
+  res.json({
+    imageUrl: req.file.path
+  });
+
+  // No async operations after sending response
 });
 
 
