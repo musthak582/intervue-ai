@@ -31,6 +31,8 @@ const registerUser = async (req, res) => {
       profileImageUrl,
     });
 
+    await user.save();
+
     // Return user data with JWT
     res.status(200).json({ 
       _id: user._id,
@@ -40,8 +42,6 @@ const registerUser = async (req, res) => {
       token: generateToken(user._id)
     });
     
-    await user.save();
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" , error:error.message});

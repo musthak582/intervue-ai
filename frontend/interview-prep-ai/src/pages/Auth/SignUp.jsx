@@ -45,9 +45,20 @@ const SignUp = ({ setCurrentPage }) => {
     // signup api call
     try {
       if(profilePic){
+        console.log("🔼 Uploading image...");
         const imgUploadRes = await uploadImage(profilePic);
+        console.log("🔄 Upload response:", imgUploadRes); // Debug here
         profileImageUrl = imgUploadRes.imageUrl || "";
       }
+      // Log the registration payload before sending
+      const registrationData = {
+        name: fullName,
+        email,
+        password,
+        profileImageUrl,
+      };
+      console.log("📤 Registration payload:", registrationData);
+      
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         name: fullName,
         email,
