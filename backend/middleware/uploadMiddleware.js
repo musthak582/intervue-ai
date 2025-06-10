@@ -1,25 +1,16 @@
-const multer = require("multer");
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-// Configure storage
-const storage = multer.diskStorage({
-  destination:  (req, file, cb) =>{
-  cb(null, './uploads');
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'interviewprepai-uploads', // optional - set a folder in Cloudinary
+    allowed_formats: ['jpg', 'jpeg', 'png', 'gif'], // allowed file formats
+    // transformation: [{ width: 500, height: 500, crop: 'limit' }] // optional transformations
   },
-  filename:  (req, file, cb) => {
-  cb(null, `${Date.now()}-${file.originalname}`);
-  }
 });
 
-// File filter
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  if (allowedTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only .jpeg, .png and jpg files are allowed'), false);
-  }
-};
+const upload = multer({ storage: storage });
 
-const upload = multer({ storage, fileFilter });
-
-module.exports = { upload }; // Export the upload;
+module.exports = { upload };
