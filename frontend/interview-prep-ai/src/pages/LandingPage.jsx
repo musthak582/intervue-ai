@@ -2,7 +2,15 @@ import { useState, useContext, useEffect } from 'react';
 import HERO_IMG from '../assets/hero-new.png';
 import { APP_FEATURES } from "../utils/data";
 import { useNavigate } from 'react-router-dom';
-import { LuSparkles, FiMic, FiMessageSquare, FiUsers, FiBookOpen, FiAward, FiArrowRight } from 'react-icons/lu';
+import {
+  FiMic,
+  FiMessageSquare,
+  FiUsers,
+  FiBookOpen,
+  FiAward,
+  FiArrowRight
+} from 'react-icons/fi';
+import { FiSparkles } from 'react-icons/fi';
 import Modal from '../components/Modal';
 import Login from '../pages/Auth/Login';
 import SignUp from '../pages/Auth/SignUp';
@@ -166,7 +174,7 @@ const LandingPage = () => {
                   animate={{ rotate: [0, 10, -10, 0] }}
                   transition={{ repeat: Infinity, duration: 2 }}
                 >
-                  <LuSparkles />
+                  <FiSparkles />
                 </motion.span>
                 AI-Powered Interview Coach
               </div>
