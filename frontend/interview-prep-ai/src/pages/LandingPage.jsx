@@ -10,7 +10,7 @@ import {
   FiAward,
   FiArrowRight
 } from 'react-icons/fi';
-import { FiSparkles } from 'react-icons/fi';
+import { LuSparkles } from 'react-icons/lu';
 import Modal from '../components/Modal';
 import Login from '../pages/Auth/Login';
 import SignUp from '../pages/Auth/SignUp';
@@ -174,7 +174,7 @@ const LandingPage = () => {
                   animate={{ rotate: [0, 10, -10, 0] }}
                   transition={{ repeat: Infinity, duration: 2 }}
                 >
-                  <FiSparkles />
+                  <LuSparkles />
                 </motion.span>
                 AI-Powered Interview Coach
               </div>
