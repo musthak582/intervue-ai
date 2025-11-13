@@ -2,14 +2,17 @@ const { questionAnswerPrompt, conceptExplainPrompt } = require('../utils/prompts
 
 
 // Lazy load the ES module using dynamic import
-let ai;
+let ai = null;
 
-(async () => {
-  const { GoogleGenAI } = await import('@google/genai');
-  ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY
-  });
-})();
+const initializeAI = async () => {
+  if (!ai) {
+    const { GoogleGenAI } = await import('@google/genai');
+    ai = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY
+    });
+  }
+  return ai;
+};
 
 
 const generateInterviewQuestions = async (req, res) => {
@@ -20,9 +23,12 @@ const generateInterviewQuestions = async (req, res) => {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
+    // Ensure AI is initialized
+    const aiInstance = await initializeAI();
+
     const prompt = questionAnswerPrompt(role, experience, topicsToFocus, numberOfQuestions);
 
-    const response = await ai.models.generateContent({
+    const response = await aiInstance.models.generateContent({
       model: 'gemini-2.0-flash-lite',
       contents: prompt
     })
@@ -56,7 +62,7 @@ const generateConceptExplanation = async (req, res) => {
     }
 
     const prompt = conceptExplainPrompt(question);
-    const response = await ai.models.generateContent({
+    const response = await aiInstance.models.generateContent({
       model: 'gemini-2.0-flash-lite',
       contents: prompt
     })
