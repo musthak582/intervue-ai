@@ -1,19 +1,16 @@
 const { questionAnswerPrompt, conceptExplainPrompt } = require('../utils/prompts');
-const { GoogleGenAi } = require('@google/genai');
+
 
 // Lazy load the ES module using dynamic import
-// let ai;
+let ai;
 
-// (async () => {
-//   const { GoogleGenAI } = await import('@google/genai');
-//   ai = new GoogleGenAI({
-//     apiKey: process.env.GEMINI_API_KEY
-//   });
-// })();
+(async () => {
+  const { GoogleGenAI } = await import('@google/genai');
+  ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY
+  });
+})();
 
-const ai = new GoogleGenAi({
-  apiKey: process.env.GEMINI_API_KEY,
-})
 
 const generateInterviewQuestions = async (req, res) => {
   try {
