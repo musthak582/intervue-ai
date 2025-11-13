@@ -1,20 +1,25 @@
-const { questionAnswerPrompt,conceptExplainPrompt } = require('../utils/prompts');
+const { questionAnswerPrompt, conceptExplainPrompt } = require('../utils/prompts');
+const { GoogleGenAi } = require('@google/genai');
 
 // Lazy load the ES module using dynamic import
-let ai;
+// let ai;
 
-(async () => {
-  const { GoogleGenAI } = await import('@google/genai');
-  ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY
-  });
-})();
+// (async () => {
+//   const { GoogleGenAI } = await import('@google/genai');
+//   ai = new GoogleGenAI({
+//     apiKey: process.env.GEMINI_API_KEY
+//   });
+// })();
+
+const ai = new GoogleGenAi({
+  apiKey: process.env.GEMINI_API_KEY,
+})
 
 const generateInterviewQuestions = async (req, res) => {
   try {
     const { role, experience, topicsToFocus, numberOfQuestions } = req.body;
 
-    if(!role || !experience || !topicsToFocus || !numberOfQuestions) {
+    if (!role || !experience || !topicsToFocus || !numberOfQuestions) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
@@ -49,7 +54,7 @@ const generateConceptExplanation = async (req, res) => {
   try {
     const { question } = req.body;
 
-    if(!question) {
+    if (!question) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
